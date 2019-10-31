@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                          Formula(conversionString: "fahrenheit to celsius", formula: {($0 - 32) * (5/9)}),
                          Formula(conversionString: "celsius to fahrenheit", formula: {($0 * (9/5)) + 32}),
                          Formula(conversionString: "quarts to liters", formula: {$0 / 1.05669}),
-                         Formula(conversionString: "liters to quarts", formula: {$0 * 1.05669}),
+                         Formula(conversionString: "liters to quarts", formula: {$0 * 1.05669})]
                          
     var fromUnits = ""
     var toUnits = ""
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         
         guard let inputValue = Double(userInput.text!) else {
             if userInput.text != "" {
-                print("show alert here to show the value entered was not a number")
+                showAlert(title: "Cannot Convert Value", message: "\"\(userInput.text!)\" is not a valid number.")
             }
             return
         }
@@ -71,6 +71,13 @@ class ViewController: UIViewController {
         let outputString = String(format: formatString, outputValue)
             resultsLabel.text = "\(inputValue) \(fromUnits) = \(outputString) \(toUnits)"
         }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
+    }
     
     //MARK: ACTIONS
     
